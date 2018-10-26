@@ -21,8 +21,8 @@ object TwoSumTest : Spek({
             println("run $time ms")
         }
         
-        it("given array of [2, 7, 15, 11] and target 11 then return [0, 1]") {
-            val result = sut.twoSum(intArrayOf(2, 7, 15, 11), 11)
+        it("given array of [2, 7, 15, 11] and target 9 then return [0, 1]") {
+            val result = sut.twoSum(intArrayOf(2, 7, 15, 11), 9)
             result shouldEqual intArrayOf(0, 1)
         }
         
@@ -34,6 +34,11 @@ object TwoSumTest : Spek({
         it("given array of [-1,-2,-3,-4,-5] and target -8 then return [2, 4]") {
             val result = sut.twoSum(intArrayOf(-1, -2, -3, -4, -5), -8)
             result shouldEqual intArrayOf(2, 4)
+        }
+        
+        it("given array of [3, 2, 4] and target 6 then return [1, 2]") {
+            val result = sut.twoSum(intArrayOf(3, 2, 4), 6)
+            result shouldEqual intArrayOf(1, 2)
         }
     }
 })
