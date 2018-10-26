@@ -12,17 +12,16 @@ package leatcode
 class JewelsAndStones {
     
     
-    // 単純に思いつくのは、SをループしてJの要素数分ループして検証する方法
-    // 計算量オーダーはどう求めるのかはよくわからんが、O(n^2)扱い？
-    // まったくもってスマートじゃない
-    // Jの数が多くなればなるほど検索の手間が激しい
-    // 自前でループしないとしても、containで判定したとしても、そのcontainが結局ループで検索するのでは意味がないしね
+    // 次にHashMapを使ってSの文字種類別に出現数をカウント、Jをキーとしてカウント数を足し合わせる方法をとった
+    // ただし速度は改善されない
+    // 要素数分ループしているのは変わらないからだろうか
     fun numJewelsInStones(J: String, S: String): Int {
         var count = 0
-        for (i in S.indices) {
-            // containsは内部でforループしてる
-            if (J.contains(S[i])) count++
+        val map = hashMapOf<Char, Int>()
+        S.forEach {
+            map[it] = map[it]?.plus(1) ?: 1
         }
+        J.forEach { count += map[it] ?: 0 }
         return count
     }
 }
