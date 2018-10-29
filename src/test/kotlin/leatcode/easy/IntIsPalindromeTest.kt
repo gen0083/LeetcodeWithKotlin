@@ -42,6 +42,11 @@ class IntIsPalindromeTest : Spek({
             val result = sut.isPalindromeWithoutStringConvert(10)
             result shouldBe false
         }
+    
+        it("input 0 then return true") {
+            val result = sut.isPalindromeWithoutStringConvert(0)
+            result shouldBe true
+        }
     }
 })
 
