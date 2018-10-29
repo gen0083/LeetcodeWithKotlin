@@ -18,5 +18,10 @@ class RobotReturnToOriginTest: Spek({
             val result = sut.judgeCircle("LL")
             result shouldBe false
         }
+        
+        it("test") {
+            val result = "I have a pen".groupingBy { it.toLowerCase() }.eachCount()
+            println(result)
+        }
     }
 })

@@ -10,7 +10,16 @@ package leatcode.easy
  */
 class RobotReturnToOrigin {
     fun judgeCircle(moves: String): Boolean {
-        val map = moves.groupingBy { it }.eachCount()
-        return map['U'] == map['D'] && map['L'] == map['R']
+        var x = 0
+        var y = 0
+        moves.forEach {
+            when(it) {
+                'U' -> y++
+                'D' -> y--
+                'R' -> x++
+                'L' -> x--
+            }
+        }
+        return x or y == 0
     }
 }
