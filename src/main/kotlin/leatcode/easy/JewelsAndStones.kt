@@ -1,4 +1,4 @@
-package leatcode
+package leatcode.easy
 
 /**
  * https://leetcode.com/problems/jewels-and-stones/

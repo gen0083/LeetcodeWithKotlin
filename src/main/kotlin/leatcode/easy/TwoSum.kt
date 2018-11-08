@@ -1,4 +1,4 @@
-package leatcode
+package leatcode.easy
 
 class TwoSum {
     fun twoSum(nums: IntArray, target: Int): IntArray {

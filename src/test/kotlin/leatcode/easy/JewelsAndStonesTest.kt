@@ -1,4 +1,4 @@
-package leatcode
+package leatcode.easy
 
 import org.amshove.kluent.shouldBe
 import org.jetbrains.spek.api.Spek
