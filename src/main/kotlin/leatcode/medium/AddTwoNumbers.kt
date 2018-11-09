@@ -14,32 +14,28 @@ package leatcode.medium
  */
 class AddTwoNumbers {
     
-    // 基本的な処理はこの考え方でOK、解法との差は余計な変数定義があるかどうかの違い
-    // 例えばこのやり方だと一旦List<Int>に各桁の計算結果を格納してループが終わってからListNodeを作成しているが、
-    // そんなことをしなくても計算を行うwhileループの部分で直接ListNodeを作成してしまえば良い
+    // 各桁の計算結果を直接計算結果ListNodeのnextに追加していく
+    // 最終的にListNodeのroot要素のnextを返せば各桁の計算結果が返せる仕組み
+    // rootを1桁目の計算結果にするためには、whileループの中でif文が必要になる
+    // (次の計算結果を格納するNextを用意する必要があるが、そのままでは最終ループの段階でもnextを確保してしまうため)
     fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
         var t1 = l1
         var t2 = l2
-        var isCarry = false
-        val result = mutableListOf<Int>()
+        var carry = 0
+        val resultRoot = ListNode()
+        var result = resultRoot
         while (t1 != null || t2 != null) {
             val i = t1?.`val` ?: 0
             val j = t2?.`val` ?: 0
-            val n = if (isCarry) i + j + 1 else i + j
-            result.add(n % 10)
-            isCarry = n >= 10
+            val n = i + j + carry
+            result.next = ListNode(n % 10)
+            result = result.next!!
+            carry = n / 10
             t1 = t1?.next
             t2 = t2?.next
         }
-        if (isCarry) result.add(1)
-        
-        val root = ListNode(result[0])
-        var t = root
-        for (i in 1 until result.size) {
-            t.next = ListNode(result[i])
-            t = t.next!!
-        }
-        return root
+        if (carry > 0) result.next = ListNode(1)
+        return resultRoot.next
     }
     
     class ListNode(var `val`: Int = 0) {
