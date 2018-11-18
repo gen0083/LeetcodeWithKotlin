@@ -14,4 +14,8 @@ class PalindromicSubstringsTest : Spek({
     it("given aaa then return 6") {
         sut.countSubstrings("aaa") shouldBe 6
     }
+    
+    it("given aba then return 4") {
+        sut.countSubstrings("aba") shouldBe 4
+    }
 })

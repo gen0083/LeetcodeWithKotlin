@@ -15,6 +15,7 @@ class PalindromicSubstrings {
         var count = 0
         for (i in 0 until s.length) {
             for (j in i until s.length) {
+                if (s[i] != s[j]) continue
                 val sub = s.substring(i, j + 1)
                 if (sub == sub.reversed()) {
                     count++
