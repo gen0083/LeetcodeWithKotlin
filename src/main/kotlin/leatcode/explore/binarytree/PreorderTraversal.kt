@@ -1,5 +1,7 @@
 package leatcode.explore.binarytree
 
+import java.util.*
+
 /**
  * https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/928/
  * https://ja.wikipedia.org/wiki/%E4%BA%8C%E5%88%86%E6%9C%A8
@@ -35,6 +37,19 @@ class PreorderTraversal {
     }
     
     fun preorderTraversalIteratively(root: TreeNode?): List<Int> {
-        TODO()
+        val list = mutableListOf<Int>()
+        root ?: return list
+        var pointer: TreeNode? = root
+        val stack = Stack<TreeNode>()
+        while (pointer != null || stack.isNotEmpty()) {
+            while (pointer != null) {
+                list.add(pointer.`val`)
+                stack.push(pointer)
+                pointer = pointer.left
+            }
+            pointer = stack.pop()
+            pointer = pointer.right
+        }
+        return list
     }
 }

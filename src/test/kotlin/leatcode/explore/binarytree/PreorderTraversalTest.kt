@@ -25,6 +25,18 @@ class PreorderTraversalTest : Spek({
     }
     
     describe("ループ処理による解法") {
+        it("1, null, 2, 3のケース") {
+            val node = TreeNode.generateTreeNode(arrayOf(1, null, 2, 3))
+            val result = sut.preorderTraversalIteratively(node)
+        
+            result shouldEqual listOf(1, 2, 3)
+        }
     
+        it("1, 3, 5, 6, 9, null, 2のケース") {
+            val node = TreeNode.generateTreeNode(arrayOf(1, 3, 5, 6, 9, null, 2))
+            val result = sut.preorderTraversalIteratively(node)
+        
+            result shouldEqual listOf(1, 3, 6, 9, 5, 2)
+        }
     }
 })
