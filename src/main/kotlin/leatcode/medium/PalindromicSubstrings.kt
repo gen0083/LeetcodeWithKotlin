@@ -14,7 +14,7 @@ class PalindromicSubstrings {
     fun countSubstrings(s: String): Int {
         var count = 0
         for (i in 0 until s.length) {
-            for (j in i until s.length) {
+            for (j in i + 1 until s.length) {
                 if (s[i] != s[j]) continue
                 val sub = s.substring(i, j + 1)
                 if (sub == sub.reversed()) {
@@ -22,6 +22,7 @@ class PalindromicSubstrings {
                 }
             }
         }
+        count += s.length
         return count
     }
 }
