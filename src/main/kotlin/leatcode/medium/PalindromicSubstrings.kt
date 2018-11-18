@@ -9,15 +9,22 @@ package leatcode.medium
  */
 class PalindromicSubstrings {
     
-    // 全組み合わせをチェックする単純なパターン
-    // 当然遅い
+    // reverseメソッドを使わずに回文チェック
+    // reverseを使うと内部でforループを使って文字列の入れ替えを行う
+    // 始点と終点、始点+1と終点-1、...というチェックを行えば入れ替えるよりは効率的に回文かどうかが確認できる
+    // 三重ループになっているが、もともとreverseを使っている部分でforループが走っていた
     fun countSubstrings(s: String): Int {
         var count = 0
         for (i in 0 until s.length) {
             for (j in i + 1 until s.length) {
-                if (s[i] != s[j]) continue
-                val sub = s.substring(i, j + 1)
-                if (sub == sub.reversed()) {
+                var isPalindrome = true
+                for (step in 0..(j - i) / 2) {
+                    if (s[i + step] != s[j - step]) {
+                        isPalindrome = false
+                        break
+                    }
+                }
+                if (isPalindrome) {
                     count++
                 }
             }
