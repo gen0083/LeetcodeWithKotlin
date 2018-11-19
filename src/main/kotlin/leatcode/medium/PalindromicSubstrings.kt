@@ -9,27 +9,21 @@ package leatcode.medium
  */
 class PalindromicSubstrings {
     
-    // reverseメソッドを使わずに回文チェック
-    // reverseを使うと内部でforループを使って文字列の入れ替えを行う
-    // 始点と終点、始点+1と終点-1、...というチェックを行えば入れ替えるよりは効率的に回文かどうかが確認できる
-    // 三重ループになっているが、もともとreverseを使っている部分でforループが走っていた
+    // 中心が奇数のときというのは例えば1文字目と2文字目の間が中心になるケース
+    // つまり部分文字列が偶数長のときの話
+    // leftとrightのポインタは、部分文字列が奇数なら同じ位置を示し、
+    // 偶数なら最初から異なる位置を示す
     fun countSubstrings(s: String): Int {
         var count = 0
-        for (i in 0 until s.length) {
-            for (j in i + 1 until s.length) {
-                var isPalindrome = true
-                for (step in 0..(j - i) / 2) {
-                    if (s[i + step] != s[j - step]) {
-                        isPalindrome = false
-                        break
-                    }
-                }
-                if (isPalindrome) {
-                    count++
-                }
+        for (center in 0 until s.length * 2) {
+            var left = center / 2
+            var right = left + center % 2
+            while (left >= 0 && right < s.length && s[left] == s[right]) {
+                count++
+                left--
+                right++
             }
         }
-        count += s.length
         return count
     }
 }
