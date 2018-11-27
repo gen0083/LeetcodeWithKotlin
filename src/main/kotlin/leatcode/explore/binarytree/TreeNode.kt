@@ -6,6 +6,26 @@ class TreeNode(var `val`: Int = 0) {
     var left: TreeNode? = null
     var right: TreeNode? = null
     
+    fun convertToArray(): Array<Int?> {
+        val out = mutableListOf<Int?>()
+        out.add(this.`val`)
+        val queue = LinkedList<TreeNode>()
+        queue.add(this)
+        while (queue.isNotEmpty()) {
+            val t = queue.poll()
+            if (t.left == null && t.right == null) continue
+            t.left?.let {
+                out.add(it.`val`)
+                queue.offer(it)
+            } ?: out.add(null)
+            t.right?.let {
+                out.add(it.`val`)
+                queue.offer(it)
+            }
+        }
+        return out.toTypedArray()
+    }
+    
     companion object {
         fun generateTreeNode(intArray: Array<Int?>): TreeNode? {
             if (intArray.isEmpty()) return null

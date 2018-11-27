@@ -1,6 +1,7 @@
 package leatcode.explore.binarytree
 
 import org.amshove.kluent.shouldBe
+import org.amshove.kluent.shouldContainSame
 import org.amshove.kluent.shouldNotBe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -53,6 +54,66 @@ class TreeNodeTest : Spek({
             
             root.right!!.left shouldBe null
             root.right!!.right!!.`val` shouldBe 2
+        }
+    }
+    
+    describe("TreeNodeからarrayに変換する") {
+        it("depth1の子のみ持つケース [1, 2, 3]") {
+            val node = TreeNode(1).apply {
+                left = TreeNode(2)
+                right = TreeNode(3)
+            }
+            
+            val s = node.convertToArray()
+            println(s.joinToString(separator = ","))
+            s shouldContainSame arrayOf<Int?>(1, 2, 3)
+        }
+        
+        it("leftノードがnullのケース [1, null, 2]") {
+            val node = TreeNode(1).apply {
+                right = TreeNode(2)
+            }
+            val s = node.convertToArray()
+            println(s.joinToString(separator = ","))
+            s shouldContainSame arrayOf(1, null, 2)
+        }
+        
+        it("rightノードを持たないケース [1, 2]") {
+            val node = TreeNode(1).apply {
+                left = TreeNode(2)
+            }
+            
+            val s = node.convertToArray()
+            println(s.joinToString(separator = ","))
+            s shouldContainSame arrayOf<Int?>(1, 2)
+        }
+        
+        it("孫ありのケース [1, 2, 3, 4, 5, 6, 7]") {
+            val node = TreeNode(1).apply {
+                left = TreeNode(2).apply {
+                    left = TreeNode(4)
+                    right = TreeNode(5)
+                }
+                right = TreeNode(3).apply {
+                    left = TreeNode(6)
+                    right = TreeNode(7)
+                }
+            }
+            val s = node.convertToArray()
+            println(s.joinToString(separator = ","))
+            s shouldContainSame arrayOf<Int?>(1, 2, 3, 4, 5, 6, 7)
+        }
+        
+        it("孫ありのケース leftなし [1, null, 3, 4, 5]") {
+            val node = TreeNode(1).apply {
+                right = TreeNode(3).apply {
+                    left = TreeNode(4)
+                    right = TreeNode(5)
+                }
+            }
+            val s = node.convertToArray()
+            println(s.joinToString(separator = ","))
+            s shouldContainSame arrayOf(1, null, 3, 4, 5)
         }
     }
 })
