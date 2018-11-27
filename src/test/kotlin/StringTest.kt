@@ -21,4 +21,23 @@ class StringTest : Spek({
         val charArray = String(str.toCharArray())
         set.contains(charArray) shouldEqual true
     }
+    
+    it("substring using intRange") {
+        val str = "0123456789"
+        
+        val oneToFive = str.substring(1..5)
+        println(oneToFive)
+        oneToFive shouldEqual "12345"
+        
+        val oneToOne = str.substring(1..1)
+        println(oneToOne)
+        oneToOne shouldEqual "1"
+        
+        val zeroToZero = str.substring(0..0)
+        println(zeroToZero)
+        zeroToZero shouldEqual "0"
+        val zeroUntilZero = str.substring(0 until 0)
+        println(zeroUntilZero)
+        zeroUntilZero shouldEqual ""
+    }
 })

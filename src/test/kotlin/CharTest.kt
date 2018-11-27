@@ -39,5 +39,17 @@ class CharTest : Spek({
             array[1] = array[1] + 1
             String(array) shouldEqual "0223"
         }
+    
+        it("use StringBuilder") {
+            val str = "0123"
+            val builder = StringBuilder(str)
+            val modified = buildString {
+                append(str.substring(0..1 - 1))
+                append(str[1] + 1)
+                append(str.substring(1 + 1..str.lastIndex))
+            }
+            println(modified)
+            modified shouldEqual "0223"
+        }
     }
 })
