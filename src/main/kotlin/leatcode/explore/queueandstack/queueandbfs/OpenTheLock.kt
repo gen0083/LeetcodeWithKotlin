@@ -1,4 +1,4 @@
-package leatcode.explore.queueandstack
+package leatcode.explore.queueandstack.queueandbfs
 
 import java.util.*
 

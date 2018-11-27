@@ -1,4 +1,4 @@
-package leatcode.explore.queueandstack
+package leatcode.explore.queueandstack.queueandbfs
 
 import org.amshove.kluent.shouldBe
 import org.jetbrains.spek.api.Spek
