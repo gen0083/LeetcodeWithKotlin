@@ -52,4 +52,11 @@ class CharTest : Spek({
             modified shouldEqual "0223"
         }
     }
+    
+    describe("character code check") {
+        it("parentheses") {
+            val chars = "()[]{}".toCharArray()
+            println(chars.map { it.toInt() }.joinToString(separator = ","))
+        }
+    }
 })
