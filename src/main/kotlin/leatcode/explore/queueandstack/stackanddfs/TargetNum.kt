@@ -1,7 +1,5 @@
 package leatcode.explore.queueandstack.stackanddfs
 
-import kotlin.math.pow
-
 /**
  * https://leetcode.com/explore/featured/card/queue-stack/232/practical-application-stack/1389/
  * P494(medium): https://leetcode.com/problems/target-sum/
@@ -17,17 +15,28 @@ import kotlin.math.pow
 class TargetNum {
     
     fun findTargetSumWays(nums: IntArray, S: Int): Int {
-        var count = 0
-        val totalSum = nums.sum()
-        val limit = if (nums.size == 1) 2 else 2.toFloat().pow(nums.size).toInt()
-        for (i in 0 until limit) {
-            var temp = totalSum
-            for (shift in 0 until nums.size) {
-                val bit = 1 shl shift
-                if (bit and i == bit) temp -= 2 * nums[shift]
+        val count: MutableList<HashMap<Int, Int>> = mutableListOf(hashMapOf(0 to 1))
+        for (i in 1..nums.size) {
+            val line = count[i - 1]
+            val possible = hashMapOf<Int, Int>()
+            for ((s, c) in line) {
+                val plusSum = s + nums[i - 1]
+                val minusSum = s - nums[i - 1]
+                if (possible.containsKey(plusSum)) {
+                    val v = possible[plusSum] ?: 0
+                    possible[plusSum] = v + c
+                } else {
+                    possible[plusSum] = c
+                }
+                if (possible.containsKey(minusSum)) {
+                    val v = possible[minusSum] ?: 0
+                    possible[minusSum] = v + c
+                } else {
+                    possible[minusSum] = c
+                }
             }
-            if (temp == S) count++
+            count.add(possible)
         }
-        return count
+        return count[nums.size][S] ?: 0
     }
 }
