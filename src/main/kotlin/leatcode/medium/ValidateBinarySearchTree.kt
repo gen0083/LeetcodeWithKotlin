@@ -12,26 +12,9 @@ class ValidateBinarySearchTree {
     
     fun isValidBST(root: TreeNode?): Boolean {
         if (root == null) return true
-        val queue = ArrayDeque<TreeNode>()
-        queue.push(root)
-        while (queue.isNotEmpty()) {
-            val target = queue.poll()
-            val lefts = traverseAllValue(target.left)
-            if (lefts.isNotEmpty()) {
-                if (lefts.none { it >= target.`val` }) {
-                    queue.push(target.left)
-                } else {
-                    return false
-                }
-            }
-            val rights = traverseAllValue(target.right)
-            if (rights.isNotEmpty()) {
-                if (traverseAllValue(target.right).none { it <= target.`val` }) {
-                    queue.push(target.right)
-                } else {
-                    return false
-                }
-            }
+        val list = traverseAllValue(root)
+        for (i in 0 until list.lastIndex) {
+            if (list[i] >= list[i + 1]) return false
         }
         return true
     }
