@@ -13,6 +13,24 @@ class ValidateBinarySearchTreeTest : Spek({
 
         result shouldBe true
     }
+
+    it("[0] true") {
+        val result = sut.isValidBST(TreeNode.generateTreeNode(arrayOf(0)))
+
+        result shouldBe true
+    }
+
+    it("[0, -1] true") {
+        val result = sut.isValidBST(TreeNode.generateTreeNode(arrayOf(0, -1)))
+
+        result shouldBe true
+    }
+
+    it("[-2147483648] true") {
+        val result = sut.isValidBST(TreeNode.generateTreeNode(arrayOf(-2147483648)))
+
+        result shouldBe true
+    }
     
     it("[2,1,3] true") {
         val result = sut.isValidBST(TreeNode.generateTreeNode(arrayOf(2, 1, 3)))

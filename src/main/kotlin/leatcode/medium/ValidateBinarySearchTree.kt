@@ -12,27 +12,27 @@ class ValidateBinarySearchTree {
     
     fun isValidBST(root: TreeNode?): Boolean {
         if (root == null) return true
-        val list = traverseAllValue(root)
-        for (i in 0 until list.lastIndex) {
-            if (list[i] >= list[i + 1]) return false
-        }
-        return true
-    }
-
-    private fun traverseAllValue(node: TreeNode?): List<Int> {
-        if (node == null) return emptyList()
-        val list = mutableListOf<Int>()
         val stack = Stack<TreeNode>()
-        var pointer: TreeNode? = node
+        var pointer: TreeNode? = root
+        var prev: Int? = null
         while (stack.isNotEmpty() || pointer != null) {
             while (pointer != null) {
                 stack.push(pointer)
                 pointer = pointer.left
             }
             pointer = stack.pop()
-            list.add(pointer.`val`)
+            val v = pointer.`val`
+            if (prev == null) {
+                prev = v
+            } else {
+                if (v > prev) {
+                    prev = v
+                } else {
+                    return false
+                }
+            }
             pointer = pointer.right
         }
-        return list
+        return true
     }
 }
