@@ -7,6 +7,12 @@ import org.jetbrains.spek.api.dsl.it
 
 class ValidateBinarySearchTreeTest : Spek({
     val sut = ValidateBinarySearchTree()
+
+    it("[] true") {
+        val result = sut.isValidBST(null)
+
+        result shouldBe true
+    }
     
     it("[2,1,3] true") {
         val result = sut.isValidBST(TreeNode.generateTreeNode(arrayOf(2, 1, 3)))

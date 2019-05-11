@@ -11,25 +11,45 @@ import java.util.*
 class ValidateBinarySearchTree {
     
     fun isValidBST(root: TreeNode?): Boolean {
-        val stack: Stack<TreeNode> = Stack()
-        var pointer: TreeNode? = root
-        stack.push(pointer)
-        while (stack.isNotEmpty() || pointer != null) {
-            while (pointer != null) {
-                val left = pointer.left
-                if (left != null && left.`val` >= pointer.`val`) {
+        if (root == null) return true
+        val queue = ArrayDeque<TreeNode>()
+        queue.push(root)
+        while (queue.isNotEmpty()) {
+            val target = queue.poll()
+            val lefts = traverseAllValue(target.left)
+            if (lefts.isNotEmpty()) {
+                if (lefts.none { it >= target.`val` }) {
+                    queue.push(target.left)
+                } else {
                     return false
                 }
-                stack.push(left)
-                pointer = left
             }
-            pointer = stack.pop()
-            val right = pointer?.right
-            if (right != null && right.`val` <= pointer.`val`) {
-                return false
+            val rights = traverseAllValue(target.right)
+            if (rights.isNotEmpty()) {
+                if (traverseAllValue(target.right).none { it <= target.`val` }) {
+                    queue.push(target.right)
+                } else {
+                    return false
+                }
             }
-            pointer = right
         }
         return true
+    }
+
+    private fun traverseAllValue(node: TreeNode?): List<Int> {
+        if (node == null) return emptyList()
+        val list = mutableListOf<Int>()
+        val stack = Stack<TreeNode>()
+        var pointer: TreeNode? = node
+        while (stack.isNotEmpty() || pointer != null) {
+            while (pointer != null) {
+                stack.push(pointer)
+                pointer = pointer.left
+            }
+            pointer = stack.pop()
+            list.add(pointer.`val`)
+            pointer = pointer.right
+        }
+        return list
     }
 }
